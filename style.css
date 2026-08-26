@@ -3,3 +3,83 @@
     margin: 0;
     box-sizing: border-box;
 }
+
+h1,
+p{
+    text-align: center;
+    padding:7px;
+    margin:7px;
+}
+
+h1{
+    font-size:38px;
+}
+
+p{
+    font-size:24px;
+}
+
+
+.calculator__wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* calculator box  */
+.calculator__box{
+    max-width: 400px;
+    margin:13px;
+    padding:18px;
+    border:2px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: start;
+    gap:12px;
+    border-radius: 10px;
+    background-color: rgb(42, 41, 41);
+    
+}
+
+/* calculator display */
+#input{
+    width:300px;
+    height:100px;
+    text-align: right;
+    padding:11px;
+    margin:22px 7px;
+    border-radius:10px;
+    font-size: larger;
+    font-weight: bolder;
+    background-color: rgb(244, 242, 242);
+}
+
+.number__box,
+.operators__box {
+    width:300px;
+}
+
+/* calculator btns */
+.number__btn,
+.operator__btn{
+    width: 82px;
+    height: 52px;
+    border-radius: 7px;
+    margin: 7px;
+    font-weight: bolder;
+    font-size: larger;
+    border:2px solid black;
+    background-color: white;
+    border-style: none;
+}
+
+.operator__btn{
+    background-color: rgb(132, 2, 132);
+    color: white;
+}
+
+.number__btn:active,
+.operator__btn:active{
+    scale: 95%;
+}
