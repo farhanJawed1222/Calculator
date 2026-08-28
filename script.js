@@ -86,6 +86,11 @@ operatorBtns.addEventListener("click", e => {
     if (!btn) return;
     let symbol = btn.textContent;
 
+    // adding the guard for another operator
+    if (num2 !== "") {
+        num1 = getOperator(operator,num1,num2);
+        num2 = "";
+    }
     operator = symbol;
     updateDisplay();
 });
