@@ -61,7 +61,8 @@ numberBtns.addEventListener("click", e => {
     let digit = btn.textContent;
 
     if (operator === "") {
-        if (num1 === "0") {
+        if (digit === "." && num1.includes(".")) return;
+        if (num1 === "0" && !(digit.includes("."))) {
             num1 = digit
         }
         else {
@@ -69,7 +70,8 @@ numberBtns.addEventListener("click", e => {
         }
     }
     else {
-        if (num2 === "0") {
+        if (digit === "." && num2.includes(".")) return;
+        if (num2 === "0" && !(digit.includes("."))) {
             num2 = digit;
         }
         else {
