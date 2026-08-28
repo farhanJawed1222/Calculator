@@ -62,6 +62,7 @@ numberBtns.addEventListener("click", e => {
 
     if (operator === "") {
         if (digit === "." && num1.includes(".")) return;
+        if(num1 === "") num1 = "0";
         if (num1 === "0" && !(digit.includes("."))) {
             num1 = digit
         }
@@ -71,6 +72,7 @@ numberBtns.addEventListener("click", e => {
     }
     else {
         if (digit === "." && num2.includes(".")) return;
+        if(num2 === "") num2 = "0";
         if (num2 === "0" && !(digit.includes("."))) {
             num2 = digit;
         }
