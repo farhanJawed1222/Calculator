@@ -26,7 +26,7 @@ function subtraction(num1, num2) {
     return num1 - num2;
 }
 
-function MUltiplication(num1, num2) {
+function multiplication(num1, num2) {
     num1 = Number(num1);
     num2 = Number(num2);
 
@@ -101,7 +101,12 @@ actionBtn.addEventListener("click", e => {
     let btn = e.target.closest("button");
     let symbol = btn.textContent;
 
+    
+    
     if (symbol === "=") {
+        // check if num1 and operator variable is empty
+        if(num1 === "" || operator === "") return;
+
         num1 = getOperator(operator, num1, num2);
         num2 = "";
         operator = ""
@@ -109,8 +114,9 @@ actionBtn.addEventListener("click", e => {
     }
 
     else if (symbol === "Clear") {
-        num1 = ""
-        num2 = ""
+        num1 = "";
+        num2 = "";
+        operator = "";
         updateDisplay();
 
     }
