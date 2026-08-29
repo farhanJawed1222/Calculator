@@ -44,7 +44,7 @@ function getOperator(operator, num1, num2) {
     switch (operator) {
         case "+": return Addition(num1, num2);
         case "−": return subtraction(num1, num2);
-        case "×": return MUltiplication(num1, num2);
+        case "×": return multiplication(num1, num2);
         case "÷": return Division(num1, num2);
     }
 }
@@ -62,7 +62,7 @@ numberBtns.addEventListener("click", e => {
 
     if (operator === "") {
         if (digit === "." && num1.includes(".")) return;
-        if(num1 === "") num1 = "0";
+        if (num1 === "") num1 = "0";
         if (num1 === "0" && !(digit.includes("."))) {
             num1 = digit
         }
@@ -72,7 +72,7 @@ numberBtns.addEventListener("click", e => {
     }
     else {
         if (digit === "." && num2.includes(".")) return;
-        if(num2 === "") num2 = "0";
+        if (num2 === "") num2 = "0";
         if (num2 === "0" && !(digit.includes("."))) {
             num2 = digit;
         }
@@ -90,7 +90,7 @@ operatorBtns.addEventListener("click", e => {
 
     // adding the guard for another operator
     if (num2 !== "") {
-        num1 = getOperator(operator,num1,num2);
+        num1 = getOperator(operator, num1, num2);
         num2 = "";
     }
     operator = symbol;
@@ -101,11 +101,11 @@ actionBtn.addEventListener("click", e => {
     let btn = e.target.closest("button");
     let symbol = btn.textContent;
 
-    
-    
+
+
     if (symbol === "=") {
         // check if num1 and operator variable is empty
-        if(num1 === "" || operator === "") return;
+        if (num1 === "" || operator === "") return;
 
         num1 = getOperator(operator, num1, num2);
         num2 = "";
@@ -118,6 +118,20 @@ actionBtn.addEventListener("click", e => {
         num2 = "";
         operator = "";
         updateDisplay();
+    }
 
+    //backspace to remove last character
+    else if (symbol === "Back") {
+
+        if (num2 !== "") {
+            num2 = num2.slice(0, -1);
+        }
+        else if (operator !== "" && num2 === "") {
+            operator = operator.slice(0, -1);
+        }
+        else {
+            num1 = num1.slice(0, -1);
+        }
+        updateDisplay();
     }
 });
