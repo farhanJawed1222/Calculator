@@ -147,12 +147,7 @@ actionBtn.addEventListener("click", e => {
             operator = operator.slice(0, -1);
         }
         else {
-            if (num1 === "undefined") {
-                num1 = "";
-            }
-            else {
-                num1 = num1.slice(0, -1);
-            }
+            num1 = num1.slice(0, -1);
         }
         updateDisplay();
     }
