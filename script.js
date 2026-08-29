@@ -96,6 +96,7 @@ operatorBtns.addEventListener("click", e => {
     if (num2 !== "" && num2 !== "-") {
         num1 = getOperator(operator, num1, num2);
         num2 = "";
+        operator = "";
     }
 
     // If the previous result was a divide-by-zero error ("undefined"),
@@ -161,7 +162,9 @@ actionBtn.addEventListener("click", e => {
             operator = operator.slice(0, -1);
         }
         else {
-            num1 = num1.slice(0, -1);
+            // converting num1 to string 
+
+            num1 = String(num1).slice(0, -1);
         }
         updateDisplay();
     }
