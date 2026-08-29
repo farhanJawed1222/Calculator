@@ -53,6 +53,10 @@ function updateDisplay() {
     displayBox.value = `${num1} ${operator} ${num2}`;
 }
 
+function clearOnError() {
+    if (num1 === "undefined") num1 = "0";
+}
+
 //-----------------------------------------------------------Event delegation--------------------------------------------------
 numberBtns.addEventListener("click", e => {
     let btn = e.target.closest("button");
@@ -93,8 +97,20 @@ operatorBtns.addEventListener("click", e => {
         num1 = getOperator(operator, num1, num2);
         num2 = "";
     }
-    operator = symbol;
+
+    // If the previous result was a divide-by-zero error ("undefined"),
+    // discard the new operator press instead of chaining off a broken num1
+    if (num1 === "undefined") {
+        operator = "";
+    }
+    else {
+        operator = symbol
+    }
     updateDisplay();
+
+    //reset num1 from "undefined" back to "0" after a divide-by-zero result.
+    clearOnError();
+
 });
 
 actionBtn.addEventListener("click", e => {
@@ -109,6 +125,9 @@ actionBtn.addEventListener("click", e => {
         num2 = "";
         operator = ""
         updateDisplay();
+
+        //reset num1 from "undefined" back to "0" after a divide-by-zero result.
+        clearOnError();
     }
 
     else if (symbol === "Clear") {
