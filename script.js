@@ -93,7 +93,7 @@ operatorBtns.addEventListener("click", e => {
     let symbol = btn.textContent;
 
     // adding the guard for another operator
-    if (num2 !== "") {
+    if (num2 !== "" && num2 !== "-") {
         num1 = getOperator(operator, num1, num2);
         num2 = "";
     }
@@ -104,7 +104,21 @@ operatorBtns.addEventListener("click", e => {
         operator = "";
     }
     else {
-        operator = symbol
+        if (num1 === "" && symbol !== "−") return
+
+        if (num1 === "" && symbol === "−") {
+            num1 += "-";
+        }
+        else if (operator !== "" && num2 === "" && symbol === "−") {
+            num2 += "-";
+        }
+        else if (num1 === "-" || num2 === "-") {
+            return;
+        }
+
+        else {
+            operator = symbol;
+        }
     }
     updateDisplay();
 
