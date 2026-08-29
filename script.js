@@ -101,11 +101,9 @@ actionBtn.addEventListener("click", e => {
     let btn = e.target.closest("button");
     let symbol = btn.textContent;
 
-
-
     if (symbol === "=") {
         // check if num1 and operator variable is empty
-        if (num1 === "" || operator === "") return;
+        if (num1 === "" || operator === "" || num2 === "") return;
 
         num1 = getOperator(operator, num1, num2);
         num2 = "";
@@ -130,7 +128,12 @@ actionBtn.addEventListener("click", e => {
             operator = operator.slice(0, -1);
         }
         else {
-            num1 = num1.slice(0, -1);
+            if (num1 === "undefined") {
+                num1 = "";
+            }
+            else {
+                num1 = num1.slice(0, -1);
+            }
         }
         updateDisplay();
     }
