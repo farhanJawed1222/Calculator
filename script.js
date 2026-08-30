@@ -36,7 +36,7 @@ function multiplication(num1, num2) {
 function Division(num1, num2) {
     num1 = Number(num1);
     num2 = Number(num2);
-    if (num2 === 0) return "undefined";
+    if (num2 === 0) return "Cannot divide by 0!";
     return Math.round((num1 / num2) * 1000) / 1000;
 }
 
@@ -85,7 +85,7 @@ function handleOperator(symbol) {
 
     // If the previous result was a divide-by-zero error ("undefined"),
     // discard the new operator press instead of chaining off a broken num1
-    if (num1 === "undefined") {
+    if (num1 === "Cannot divide by 0!") {
         operator = "";
     }
     else {
@@ -141,7 +141,7 @@ function updateDisplay() {
 }
 
 function clearUndefinedResult() {
-    if (num1 === "undefined") num1 = "0";
+    if (num1 === "Cannot divide by 0!") num1 = "0";
 }
 
 //-----------------------------------------------------------Event delegation--------------------------------------------------
