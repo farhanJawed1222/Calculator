@@ -53,6 +53,7 @@ function handleNumbers(digit) {
     if (operator === "") {
         if (digit === "." && num1.includes(".")) return;
         if (num1 === "") num1 = "0";
+        if (num1 === "-" && digit.includes(".")) num1 = "-0";
         if (num1 === "0" && !(digit.includes("."))) {
             num1 = digit
         }
@@ -63,6 +64,7 @@ function handleNumbers(digit) {
     else {
         if (digit === "." && num2.includes(".")) return;
         if (num2 === "") num2 = "0";
+        if (num2 === "-" && digit.includes(".")) num2 = "-0";
         if (num2 === "0" && !(digit.includes("."))) {
             num2 = digit;
         }
@@ -87,7 +89,7 @@ function handleOperator(symbol) {
         operator = "";
     }
     else {
-        if (num1 === "" && symbol !== "−") return
+        if (num1 === "" && symbol !== "−") return;
 
         if (num1 === "" && symbol === "−") {
             num1 += "-";
@@ -107,9 +109,7 @@ function handleOperator(symbol) {
 
 // function for give result output
 function handleResult() {
-    // check if num1 and operator variable is empty
     if (num1 === "" || operator === "" || num2 === "") return;
-
     num1 = getOperator(operator, num1, num2);
     num2 = "";
     operator = ""
@@ -169,21 +169,20 @@ actionBtn.addEventListener("click", e => {
     let command = btn.textContent;
 
     if (command === "=") {
-
-        handleResult(command);
+        handleResult();
         updateDisplay();
         //reset num1 from "undefined" back to "0" after a divide-by-zero result.
         clearUndefinedResult();
     }
 
     else if (command === "Clear") {
-        handleClear(command);
+        handleClear();
         updateDisplay();
     }
 
     //backspace to remove last character
     else if (command === "Back") {
-        handleBackspace(command);
+        handleBackspace();
         updateDisplay();
     }
 });
