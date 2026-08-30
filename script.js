@@ -48,22 +48,8 @@ function getOperator(operator, num1, num2) {
         case "÷": return Division(num1, num2);
     }
 }
-
-function updateDisplay() {
-    displayBox.value = `${num1} ${operator} ${num2}`;
-}
-
-function clearOnError() {
-    if (num1 === "undefined") num1 = "0";
-}
-
-//-----------------------------------------------------------Event delegation--------------------------------------------------
-numberBtns.addEventListener("click", e => {
-    let btn = e.target.closest("button");
-    if (!btn) return;
-
-    let digit = btn.textContent;
-
+// function to get numbers for calculation
+function handleNumbers(digit) {
     if (operator === "") {
         if (digit === "." && num1.includes(".")) return;
         if (num1 === "") num1 = "0";
@@ -84,14 +70,10 @@ numberBtns.addEventListener("click", e => {
             num2 += digit;
         }
     }
-    updateDisplay();
-});
+}
 
-operatorBtns.addEventListener("click", e => {
-    let btn = e.target.closest("button");
-    if (!btn) return;
-    let symbol = btn.textContent;
-
+// function to get operator for calculation
+function handleOperator(symbol) {
     // adding the guard for another operator
     if (num2 !== "" && num2 !== "-") {
         num1 = getOperator(operator, num1, num2);
@@ -121,51 +103,87 @@ operatorBtns.addEventListener("click", e => {
             operator = symbol;
         }
     }
+}
+
+// function for give result output
+function handleResult() {
+    // check if num1 and operator variable is empty
+    if (num1 === "" || operator === "" || num2 === "") return;
+
+    num1 = getOperator(operator, num1, num2);
+    num2 = "";
+    operator = ""
+}
+
+//function for clear functionality
+function handleClear() {
+    num1 = "";
+    num2 = "";
+    operator = "";
+}
+
+// function to handle backspace
+function handleBackspace() {
+    if (num2 !== "") {
+        num2 = num2.slice(0, -1);
+    }
+    else if (operator !== "" && num2 === "") {
+        operator = operator.slice(0, -1);
+    }
+    else {
+        // converting num1 to string 
+        num1 = String(num1).slice(0, -1);
+    }
+}
+function updateDisplay() {
+    displayBox.value = `${num1} ${operator} ${num2}`;
+}
+
+function clearUndefinedResult() {
+    if (num1 === "undefined") num1 = "0";
+}
+
+//-----------------------------------------------------------Event delegation--------------------------------------------------
+numberBtns.addEventListener("click", e => {
+    let btn = e.target.closest("button");
+    if (!btn) return;
+
+    let digit = btn.textContent;
+    handleNumbers(digit);
+    updateDisplay();
+});
+
+operatorBtns.addEventListener("click", e => {
+    let btn = e.target.closest("button");
+    if (!btn) return;
+    let symbol = btn.textContent;
+    handleOperator(symbol);
     updateDisplay();
 
     //reset num1 from "undefined" back to "0" after a divide-by-zero result.
-    clearOnError();
-
+    clearUndefinedResult();
 });
 
 actionBtn.addEventListener("click", e => {
     let btn = e.target.closest("button");
-    let symbol = btn.textContent;
+    let command = btn.textContent;
 
-    if (symbol === "=") {
-        // check if num1 and operator variable is empty
-        if (num1 === "" || operator === "" || num2 === "") return;
+    if (command === "=") {
 
-        num1 = getOperator(operator, num1, num2);
-        num2 = "";
-        operator = ""
+        handleResult(command);
         updateDisplay();
-
         //reset num1 from "undefined" back to "0" after a divide-by-zero result.
-        clearOnError();
+        clearUndefinedResult();
     }
 
-    else if (symbol === "Clear") {
-        num1 = "";
-        num2 = "";
-        operator = "";
+    else if (command === "Clear") {
+        handleClear(command);
         updateDisplay();
     }
 
     //backspace to remove last character
-    else if (symbol === "Back") {
-
-        if (num2 !== "") {
-            num2 = num2.slice(0, -1);
-        }
-        else if (operator !== "" && num2 === "") {
-            operator = operator.slice(0, -1);
-        }
-        else {
-            // converting num1 to string 
-
-            num1 = String(num1).slice(0, -1);
-        }
+    else if (command === "Back") {
+        handleBackspace(command);
         updateDisplay();
     }
 });
