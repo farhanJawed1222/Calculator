@@ -16,14 +16,14 @@ function Addition(num1, num2) {
     num1 = Number(num1);
     num2 = Number(num2);
 
-    return num1 + num2;
+    return Math.round((num1 + num2) * 1000) / 1000;
 }
 
 function subtraction(num1, num2) {
     num1 = Number(num1);
     num2 = Number(num2);
 
-    return num1 - num2;
+    return Math.round((num1 - num2) * 1000) / 1000;
 }
 
 function multiplication(num1, num2) {
@@ -94,7 +94,8 @@ function handleOperator(symbol) {
         if (num1 === "" && symbol === "−") {
             num1 += "-";
         }
-        else if (operator !== "" && num2 === "" && symbol === "−") {
+        //num2 get - if operator is not addition and subtraction
+        else if ((operator !== "+" && operator !== "−") && num2 === "" && symbol === "−") {
             num2 += "-";
         }
         else if (num1 === "-" || num2 === "-") {
@@ -109,7 +110,7 @@ function handleOperator(symbol) {
 
 // function for give result output
 function handleResult() {
-    if (num1 === "" || operator === "" || num2 === "") return;
+    if (num1 === "" || operator === "" || num2 === "" || num2 === "-") return;
     num1 = getOperator(operator, num1, num2);
     num2 = "";
     operator = ""
