@@ -95,7 +95,7 @@ function handleOperator(symbol) {
             num1 += "-";
         }
         //num2 get - if operator is not addition and subtraction
-        else if ((operator !== "+" && operator !== "−") && num2 === "" && symbol === "−") {
+        else if ((operator === "×" || operator === "÷") && num2 === "" && symbol === "−") {
             num2 += "-";
         }
         else if (num1 === "-" || num2 === "-") {
