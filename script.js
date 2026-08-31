@@ -8,6 +8,7 @@ const actionBtn = document.querySelector(".action__box");
 let num1 = "";
 let num2 = "";
 let operator = "";
+let resultCalculated = false;
 //---------------------------------------------------------Functions/variables------------------------------------------------
 
 //  function for different calculation
@@ -51,14 +52,18 @@ function getOperator(operator, num1, num2) {
 // function to get numbers for calculation
 function handleNumbers(digit) {
     if (operator === "") {
+        //Add flag so a digit after "=" starts a new calculation
+        if (resultCalculated === true) num1 = "";
         if (digit === "." && num1.includes(".")) return;
         if (num1 === "") num1 = "0";
         if (num1 === "-" && digit.includes(".")) num1 = "-0";
         if (num1 === "0" && !(digit.includes("."))) {
             num1 = digit
+            resultCalculated = false;
         }
         else {
             num1 += digit;
+            resultCalculated = false;
         }
     }
     else {
@@ -114,6 +119,7 @@ function handleResult() {
     num1 = getOperator(operator, num1, num2);
     num2 = "";
     operator = ""
+    resultCalculated = true;
 }
 
 //function for clear functionality
