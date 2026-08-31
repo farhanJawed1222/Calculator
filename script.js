@@ -124,6 +124,7 @@ function handleResult() {
 
 //function for clear functionality
 function handleClear() {
+    resultCalculated = false;
     num1 = "";
     num2 = "";
     operator = "";
@@ -131,6 +132,7 @@ function handleClear() {
 
 // function to handle backspace
 function handleBackspace() {
+    resultCalculated = false;
     if (num2 !== "") {
         num2 = num2.slice(0, -1);
     }
