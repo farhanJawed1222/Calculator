@@ -9,6 +9,12 @@ let num1 = "";
 let num2 = "";
 let operator = "";
 let resultCalculated = false;
+let keyToOperator = {
+    "+": "+",
+    "-": "−",
+    "*": "×",
+    "/": "÷"
+}
 //---------------------------------------------------------Functions/variables------------------------------------------------
 
 //  function for different calculation
@@ -152,7 +158,7 @@ function clearUndefinedResult() {
     if (num1 === "Cannot divide by 0!") num1 = "0";
 }
 
-//-----------------------------------------------------------Event delegation--------------------------------------------------
+//-----------------------------------------------------------Mouse Event--------------------------------------------------
 numberBtns.addEventListener("click", e => {
     let btn = e.target.closest("button");
     if (!btn) return;
@@ -194,4 +200,38 @@ actionBtn.addEventListener("click", e => {
         handleBackspace();
         updateDisplay();
     }
+});
+
+//------------------------------------------------------Keyboard Event-------------------------------------------------------
+document.addEventListener("keydown", e => {
+    let key = e.key.trim();
+
+    // if key press is not empty or not a NaN
+    if ((key !== "" && !isNaN(key)) || key === ".") {
+        handleNumbers(key);
+        updateDisplay();
+    }
+
+    else if (key in keyToOperator) {
+        handleOperator(keyToOperator[key]);
+        updateDisplay();
+    }
+    else if (key === "Enter" || key === "=") {
+        handleResult();
+        updateDisplay();
+        //reset num1 from "undefined" back to "0" after a divide-by-zero result.
+        clearUndefinedResult();
+    }
+    else if (key === "Escape") {
+        handleClear();
+        updateDisplay();
+    }
+    else if (key === "Backspace") {
+        handleBackspace();
+        updateDisplay();
+    }
+    else {
+        return;
+    }
+
 });
