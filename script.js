@@ -67,6 +67,10 @@ function handleNumbers(digit) {
             num1 = digit
             resultCalculated = false;
         }
+        else if (num1 === "-0" && !(digit.includes("."))) {
+            num1 = "-" + digit;
+            resultCalculated = false;
+        }
         else {
             num1 += digit;
             resultCalculated = false;
@@ -78,6 +82,9 @@ function handleNumbers(digit) {
         if (num2 === "-" && digit.includes(".")) num2 = "-0";
         if (num2 === "0" && !(digit.includes("."))) {
             num2 = digit;
+        }
+        else if (num2 === "-0" && !(digit.includes("."))) {
+            num2 = "-" + digit;
         }
         else {
             num2 += digit;
